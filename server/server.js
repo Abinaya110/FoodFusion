@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express');
+const menuRoutes = require('./routes/menu');
 //express app
 const app = express();
 
@@ -9,9 +10,10 @@ app.use((req,res,next)=> {
     next()
 })
 //routes
-app.get("/api",(req,res) => {
-    res.json({"users":["shahana","abinaya","hema","mugilan","kavi","gopi","bala","prem"]})
-})
+app.use('api/restaurant',menuRoutes)
+
+//CONNECT TO DB
+mongoose.connect(process.env.MONGODB_URI)
 
 
 //listern for requesting users 
