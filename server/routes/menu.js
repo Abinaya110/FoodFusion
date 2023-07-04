@@ -1,6 +1,5 @@
 const express = require('express')
-const menu = require('../models/menu')
-
+const{billing}=require('../controller/menucontroller')
 const router =   express.Router()
 //get
 router.get('/', (req, res)=>{
@@ -12,16 +11,7 @@ router.get('/:id', (req, res)=>{
 })  
 
 //post request
-router.post('/', async (req, res) => {
-    const { name, cuisine, price, ingredients } = req.body;
-  
-    try {
-      const newItem = await menu.create({ name, cuisine, price, ingredients });
-      res.status(200).json(newItem);
-    } catch (err) {
-      res.status(400).json({ err: err.message });
-    }
-  });
+router.post('/',billing );
   
 
 // delete request
