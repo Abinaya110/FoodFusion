@@ -1,21 +1,32 @@
+//equire("dotenv").config({ path: "" });
 require('dotenv').config()
+
+const mongoose = require('mongoose');
 const express = require('express');
 const menuRoutes = require('./routes/menu');
-//express app
+
+// Express app
 const app = express();
 
-//middleware
-app.use((req,res,next)=> {
-    console.log(req.path,req.method)
-    next()
-})
-//routes
-app.use('api/restaurant',menuRoutes)
+// Middleware
+app.use(express.json());
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
 
-//CONNECT TO DB
-mongoose.connect(process.env.MONGODB_URI)
+// Routes
+app.use('/api/restaurant', menuRoutes);
 
-
-//listern for requesting users 
-app.listen(process.env.PORT,()=>{console.log("listening",process.env.PORT)})
-
+// Connect to the database
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log("Connected to the database");
+    // Listen for requests
+    app.listen(process.env.PORT, () => {
+      console.log("Listening for requests on port", process.env.PORT);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
