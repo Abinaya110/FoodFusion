@@ -5,7 +5,9 @@ const menu = require('../models/menu')
 
 
 //get all
-
+const findmenu = async(req,res)=>{
+    const find= await menu.  
+};
 
 //post
 const billing=async (req,res)=> {
