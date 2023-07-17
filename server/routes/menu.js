@@ -1,30 +1,29 @@
-const express = require('express')
-const{billing}=require('../controller/menucontroller')
-const router =   express.Router()
-//get
-router.get('/', (req, res)=>{
-    res.json({mssg:' get method success',})
-})
-//get single id request
-router.get('/:id', (req, res)=>{
-    res.json({mssg:'success',})
-})  
+const express = require('express');
+const {
+  createRecipe,
+  getRecipeById,
+  getAllRecipes
+} = require('../controller/menucontroller');
 
-//post request
-router.post('/',billing );
-  
+const router = express.Router();
 
-// delete request
-router.delete('/', (req, res)=>{
-    res.json({mssg:'delete method success',})
-})
+// Get all recipes
+router.get('/', getAllRecipes);
 
-//update request
-router.patch('/:id', (req, res)=>{
-    res.json({mssg:'update method success',})
-})
+// Get a single recipe by ID
+router.get('/:id', getRecipeById);
 
+// Create a new recipe
+router.post('/', createRecipe);
 
+// Delete a recipe
+router.delete('/:id', (req, res) => {
+  res.json({ message: 'Delete method success' });
+});
 
- 
-module.exports = router
+// Update a recipe
+router.patch('/:id', (req, res) => {
+  res.json({ message: 'Update method success' });
+});
+
+module.exports = router;

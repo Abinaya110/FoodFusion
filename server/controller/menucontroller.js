@@ -1,31 +1,51 @@
-const menu = require('../models/menu')
+const menu = require('../models/menu');
+const mongoose = require('mongoose');
 
-
-//get
-
-
-//get all
-const findmenu = async(req,res)=>{
-    const find= await menu.  
+// Get all recipes
+const getAllRecipes = async (req, res) => {
+  try {
+    const recipes = await menu.find({}).sort({});
+    res.status(200).json(recipes);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
-//post
-const billing=async (req,res)=> {
-    const { name, cuisine, price, ingredients } = req.body;
+// Get a single recipe
+const getRecipeById = async (req, res) => {
+  const { id } = req.params;
   
-    try {
-      const newItem = await menu.create({ name, cuisine, price, ingredients });
-      res.status(200).json(newItem);
-    } catch (err) {
-      res.status(400).json({ err: err.message });
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'Invalid recipe ID' });
+  }
+
+  try {
+    const recipe = await menu.findById(id);
+
+    if (!recipe) {
+      return res.status(404).json({ error: 'Recipe not found' });
     }
-  };
 
-//delete
+    res.status(200).json(recipe);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
+// Create a new recipe
+const createRecipe = async (req, res) => {
+  const { name, cuisine, price } = req.body;
 
-//update
+  try {
+    const newRecipe = await menu.create({ name, cuisine, price });
+    res.status(201).json(newRecipe);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
 
-module.exports ={
-    billing
+module.exports = {
+  getAllRecipes,
+  getRecipeById,
+  createRecipe
 };

@@ -1,27 +1,23 @@
 const mongoose = require('mongoose');
 
-//creata a schema for food collection
-
+// Create a schema for the food collection
 const foodSchema = new mongoose.Schema({
-    name:{
-        type: 'string',
-        required: true
-    },
-    cuisine:{  
-        type: 'string',
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true
-      },
-      ingredients:['string'],
-      createdAt: {
-        type: Date,
-        default: Date.now()
-      }
+  name: {
+    type: String,
+    required: true
+  },
+  cuisine: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  }
+  // ingredients: [String]
 });
 
-const food =mongoose.model('food',foodSchema);
+// Create a model for the food collection using the schema
+const food = mongoose.model('food', foodSchema);
 
-module .exports = food;
+module.exports = food;
