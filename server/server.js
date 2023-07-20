@@ -1,6 +1,10 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const bcrypt = require('bcrypt');
+const jwt = require('jwt');
 const menuRoutes = require('./routes/menu');
 
 // Express app
@@ -29,3 +33,16 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+  //setup model 
+
+  const User = require('./models/user');
+
+  app.use(cors());
+  app.use(bodyParser.json());
+
+  // secret key for JWT
+
+  const JWT_SECRET =""
+
+
