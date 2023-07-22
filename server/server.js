@@ -4,8 +4,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
-const jwt = require('jwt');
-const menuRoutes = require('./routes/menu');
+// const jwt = require('jwt');
+const menuRoutes = require('./');
 
 // Express app
 const app = express();
@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/api/recipes', menuRoutes);
+app.use('/api', menuRoutes);
 
 // Connect to the database
 mongoose
@@ -38,11 +38,11 @@ mongoose
 
   const User = require('./models/user');
 
-  app.use(cors());
-  app.use(bodyParser.json());
+  // app.use(cors());
+  // app.use(bodyParser.json());
 
   // secret key for JWT
 
-  const JWT_SECRET =""
+  // const JWT_SECRET =""
 
 

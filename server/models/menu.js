@@ -1,23 +1,40 @@
 const mongoose = require('mongoose');
 
 // Create a schema for the food collection
-const foodSchema = new mongoose.Schema({
+const menuSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
   },
-  cuisine: {
+  description: {
     type: String,
     required: true
   },
   price: {
     type: Number,
     required: true
-  }
+  },
+  category:{
+     type:Number,
+     required: true,
+},
+category: {
+     type:'string',
+     required: true,
+     Optional:['Main course', 'Dessert', 'Beverage','others'],
+},
+imageURL:{
+  type:'string',
+},
+createdAt: {
+  type: Date,
+  default: Date.now,
+},
+
   // ingredients: [String]
 });
 
 // Create a model for the food collection using the schema
-const food = mongoose.model('food', foodSchema);
+const Menu = mongoose.model('Menu', menuSchema);
 
-module.exports = food;
+module.exports = Menu;
