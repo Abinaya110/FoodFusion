@@ -5,20 +5,21 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 // const jwt = require('jwt');
-const menuRoutes = require('./');
+const menuRoutes = require('./models/user');
 
 // Express app
 const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
 
 // Routes
-app.use('/api', menuRoutes);
+app.use('/api',express.Router);
 
 // Connect to the database
 mongoose

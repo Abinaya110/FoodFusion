@@ -1,29 +1,31 @@
 const express = require('express');
-const {
-  createRecipe,
-  getRecipeById,
-  getAllRecipes
-} = require('../controller/menucontroller');
-
 const router = express.Router();
 
-// Get all recipes
-router.get('/', getAllRecipes);
+const {
+  registerUser,
+  loginUser,
+  
+} = require('../controller/menucontroller');
 
-// Get a single recipe by ID
-router.get('/:id', getRecipeById);
-
-// Create a new recipe
-router.post('/', createRecipe);
-
-// Delete a recipe
-router.delete('/:id', (req, res) => {
-  res.json({ message: 'Delete method success' });
+// Route to register a new user
+router.post('/register', async (req, res) => {
+  try {
+    await registerUser(req, res);
+  } catch (error) {
+    console.error('Error registering user:', error);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
 });
 
-// Update a recipe
-router.patch('/:id', (req, res) => {
-  res.json({ message: 'Update method success' });
+// Route to login and generate JWT token
+router.post('/login', async (req, res) => {
+  try {
+    await loginUser(req, res);
+  } catch (error) {
+    console.error('Error logging in:', error);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
 });
+
 
 module.exports = router;

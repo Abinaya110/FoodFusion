@@ -13,10 +13,10 @@ password:{
     required: true,
     minlength:10,
 },
-createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+// createdAt: {
+//     type: Date,
+//     default: Date.now,
+//   },
 });
 const User = mongoose.model('User',userschema);
  module.exports = User;
