@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
     await registerUser(req, res);
   } catch (error) {
     console.error('Error registering user:', error);
-    res.status(500).json({ message: 'Internal server error.' });
+    res.status(500).json({ message: 'nm server error.' });
   }
 });
 
@@ -23,7 +23,7 @@ router.post('/login', async (req, res) => {
     await loginUser(req, res);
   } catch (error) {
     console.error('Error logging in:', error);
-    res.status(500).json({ message: 'Internal server error.' });
+    res.status(500).json({ message: 'fgb server error.' });
   }
 });
 

@@ -1,7 +1,9 @@
 const User = require('../models/user');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const Menu = require('menu');
+const bcrypt = require('bcrypt');
+
+
 
 
 // secret key for authentication jwt token
@@ -20,12 +22,13 @@ const registerUser = async (req, res) => {
 
     //create a new user in db
 
-    const newUser = new User({ email, passsword: hashedPassword });
+    const newUser = new User({ email, password: hashedPassword });
     await newUser.save();
 
     //generate a jwt token
-    const token = jwt.sign({ user: { id: newUser._id, email: newUser.email } })
+    const token = jwt.sign({ user: { id: newUser._id, email: newUser.email } },JWT_SECRET_KEY);
     res.status(201).json({ message: 'User registered successfully.', token });
+    console.log('User registered successfully')
   } catch (error) {
     console.error('Error registering user:', error);
     res.status(500).json({ message: 'Internal server error.' });
@@ -48,9 +51,9 @@ const registerUser = async (req, res) => {
       }
 
       //generate a jwt token for theauthenticated user
-      const token = jwt.sign({ user:{id:user._id,email:user.email} }, JWT_SECRET_KEY,{
+      const token = jwt.sign({ user:{id:user._id,email:user.email} }, JWT_SECRET_KEY);
 
-      });
+      
       res.json({message:'Login successful',token});
     }catch(err){console.log(err);
       res.status(500).json({message:"internal server error"});

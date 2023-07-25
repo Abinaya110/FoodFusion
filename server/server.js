@@ -3,9 +3,8 @@ const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const bcrypt = require('bcrypt');
-// const jwt = require('jwt');
-const menuRoutes = require('./models/user');
+const jwt = require('jsonwebtoken');
+const menuRoutes = require('./routes/menu');
 
 // Express app
 const app = express();
@@ -19,7 +18,9 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/api',express.Router);
+const router = express.Router();
+app.use('/api', router);
+router.use('/users', menuRoutes);
 
 // Connect to the database
 mongoose
@@ -35,15 +36,6 @@ mongoose
     console.log(err);
   });
 
-  //setup model 
-
-  const User = require('./models/user');
-
-  // app.use(cors());
-  // app.use(bodyParser.json());
-
-  // secret key for JWT
-
-  // const JWT_SECRET =""
-
+// Setup model (if needed, you can define models in separate files)
+const User = require('./models/user');
 
