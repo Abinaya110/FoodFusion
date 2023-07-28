@@ -13,19 +13,16 @@ const menuSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: true
-  },
-  category:{
-     type:Number,
-     required: true,
+
 },
 category: {
      type:'string',
      required: true,
      Optional:['Main course', 'Dessert', 'Beverage','others'],
 },
-imageURL:{
-  type:'string',
-},
+// imageURL:{
+//   type:'string',
+// },
 createdAt: {
   type: Date,
   default: Date.now,

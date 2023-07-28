@@ -38,4 +38,6 @@ mongoose
 
 // Setup model (if needed, you can define models in separate files)
 const User = require('./models/user');
+const Menu = require('./models/menu');
+
 

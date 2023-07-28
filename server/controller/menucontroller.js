@@ -2,6 +2,7 @@ const User = require('../models/user');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const Menu = require('../models/menu');
 
 
 
@@ -62,66 +63,40 @@ const registerUser = async (req, res) => {
     }
 };
 
+// create a new menu item
+const createMenuItem = async(req,res)=>{
+  try{
+    const{name,description,price,category}=req.body;
+    // Validate the required fields (you can add more validation as needed)
+    if (!name || !description || !price|| !category) {
+      return res.status(400).json({ message: 'Name, description, and price are required fields' });
+    }
 
+    // Create a new menu item using the Menu model
+    const menuItem = new Menu({
+      name,
+      description,
+      price,
+      category
+    });
 
+    // Save the menu item to the database
+    await menuItem.save();
 
+    // Respond with the newly created menu item
+    res.status(201).json({ message: 'Menu item created successfully', data: menuItem });
+  } catch (error) {
+    console.error('Error creating menu item:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
-
-
-
-
-
-
-
-
-
-// // Get all recipes
-// const getAllRecipes = async (req, res) => {
-//   try {
-//     const recipes = await menu.find({}).sort({});
-//     res.status(200).json(recipes);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
-// // Get a single recipe
-// const getRecipeById = async (req, res) => {
-//   const { id } = req.params;
-
-//   if (!mongoose.Types.ObjectId.isValid(id)) {
-//     return res.status(400).json({ error: 'Invalid recipe ID' });
-//   }
-
-//   try {
-//     const recipe = await menu.findById(id);
-
-//     if (!recipe) {
-//       return res.status(404).json({ error: 'Recipe not found' });
-//     }
-
-//     res.status(200).json(recipe);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
-// // Create a new recipe
-// const createRecipe = async (req, res) => {
-//   const { name, cuisine, price } = req.body;
-
-//   try {
-//     const newRecipe = await menu.create({ name, cuisine, price });
-//     res.status(201).json(newRecipe);
-//   } catch (err) {
-//     res.status(400).json({ error: err.message });
-//   }
-// };
+  
 
 module.exports = {
   registerUser,
-  loginUser
-  
-  
-  
+  loginUser,
+  createMenuItem
 };
+
+
