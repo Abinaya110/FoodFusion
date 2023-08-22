@@ -13,10 +13,16 @@ password:{
     required: true,
     minlength:10,
 },
-// createdAt: {
-//     type: Date,
-//     default: Date.now,
-//   },
+role:{
+type:'string',
+required: true,
+enum:['customer','vendor'],
+default:'customer',
+},
+createdAt:{
+    type:'Date',
+    default:"date.now",
+}
 });
 const User = mongoose.model('User',userschema);
  module.exports = User;
